@@ -1,9 +1,9 @@
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-# Install Maven
-RUN apt-get update && apt-get install -y maven
+# Install Maven and OpenJDK development tools
+RUN apk add --no-cache maven openjdk17
 
 # Copy pom.xml and download dependencies
 COPY pom.xml .
