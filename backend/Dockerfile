@@ -15,8 +15,8 @@ COPY src ./src
 # Build the application
 RUN mvn clean package -DskipTests
 
-# Copy the built jar
-COPY target/leave-management-backend-1.0.0.jar app.jar
+# Find and copy the built jar
+RUN find target -name "*.jar" -not -name "*-sources.jar" -not -name "*-javadoc.jar" | head -1 | xargs -I {} cp {} app.jar
 
 EXPOSE 8080
 
