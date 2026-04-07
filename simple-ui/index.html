@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Dashboard Styles */
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .role-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .role-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .role-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        /* Leave Application Styles */
+        .leave-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .leave-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            min-height: 100px;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back-btn {
+            background: #718096;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <h1 class="login-title">Leave Management System</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="dashboard-container hidden">
+        <button class="back-btn" onclick="showLoginPage()">← Logout</button>
+        <h1 class="dashboard-title">Select Your Role</h1>
+        <div class="roles-grid">
+            <div class="role-card" onclick="showLeaveApplication('CEO')">
+                <div class="role-icon">👔</div>
+                <div class="role-title">CEO</div>
+            </div>
+            <div class="role-card" onclick="showLeaveApplication('HR')">
+                <div class="role-icon">👥</div>
+                <div class="role-title">HR</div>
+            </div>
+            <div class="role-card" onclick="showLeaveApplication('Team Lead')">
+                <div class="role-icon">👨‍💼</div>
+                <div class="role-title">Team Lead</div>
+            </div>
+            <div class="role-card" onclick="showLeaveApplication('Staff')">
+                <div class="role-icon">👤</div>
+                <div class="role-title">Staff</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave Application Page -->
+    <div id="leaveApplicationPage" class="leave-form hidden">
+        <button class="back-btn" onclick="showDashboard()">← Back to Dashboard</button>
+        <h1 class="leave-title">Apply Leave</h1>
+        <form id="leaveForm">
+            <div class="form-group">
+                <label class="form-label" for="recipient">Select whom leave is sent to</label>
+                <select id="recipient" class="form-select" required>
+                    <option value="">Select recipient...</option>
+                    <option value="CEO">CEO</option>
+                    <option value="HR">HR</option>
+                    <option value="TL">Team Lead</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="leaveDate">Leave Date</label>
+                <input type="date" id="leaveDate" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="days">Number of Days</label>
+                <input type="number" id="days" class="form-input" placeholder="Enter number of days" min="1" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="reason">Leave Reason</label>
+                <textarea id="reason" class="form-textarea" placeholder="Enter your leave reason..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Leave Application</button>
+        </form>
+    </div>
+
+    <script>
+        // Show/Hide Pages
+        function showLoginPage() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('dashboardPage').classList.add('hidden');
+            document.getElementById('leaveApplicationPage').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('dashboardPage').classList.remove('hidden');
+            document.getElementById('leaveApplicationPage').classList.add('hidden');
+        }
+
+        function showLeaveApplication(role) {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('dashboardPage').classList.add('hidden');
+            document.getElementById('leaveApplicationPage').classList.remove('hidden');
+            
+            // Store selected role for form submission
+            window.selectedRole = role;
+        }
+
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation (in real app, this would be server-side)
+            if (email && password) {
+                showDashboard();
+            } else {
+                alert('Please enter both email and password');
+            }
+        });
+
+        // Leave Form Handler
+        document.getElementById('leaveForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const recipient = document.getElementById('recipient').value;
+            const leaveDate = document.getElementById('leaveDate').value;
+            const days = document.getElementById('days').value;
+            const reason = document.getElementById('reason').value;
+            
+            if (recipient && leaveDate && days && reason) {
+                alert(`Leave application submitted successfully!\n\nTo: ${recipient}\nDate: ${leaveDate}\nDays: ${days}\nReason: ${reason}`);
+                
+                // Reset form
+                document.getElementById('leaveForm').reset();
+                showDashboard();
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('leaveDate').setAttribute('min', today);
+    </script>
+</body>
+</html>
