@@ -1,9 +1,9 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Install Maven and OpenJDK development tools
-RUN apk add --no-cache maven openjdk17
+# Install Maven
+RUN apk add --no-cache maven
 
 # Copy pom.xml and download dependencies
 COPY pom.xml .
