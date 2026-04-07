@@ -16,7 +16,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Copy the built jar
-COPY target/*.jar app.jar
+COPY target/leave-management-backend-1.0.0.jar app.jar
 
 EXPOSE 8080
 
